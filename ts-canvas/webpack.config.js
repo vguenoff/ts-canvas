@@ -12,7 +12,8 @@ module.exports = {
     devtool: "source-map",
     resolve: {
         // Tell webpack to try adding ".ts" to `import ...` statements it parses
-        extensions: [".ts", ".js"]
+        extensions: [".ts", ".js"],
+        modules: [ path.resolve(__dirname, "src"), path.resolve(__dirname, "node_modules")]
     },
     module: {
         rules: [
