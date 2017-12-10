@@ -9,6 +9,7 @@ class Circle implements IShape {
     public radius: number = 100,
     public color: string = 'red',
     public lineWidth: number = 5,
+    public velocityX: number = Math.round(Math.random() + 1),
   ) {}
 
   public render = (): void => {
@@ -28,7 +29,8 @@ class Circle implements IShape {
     ctx.fill();
     ctx.stroke();
     ctx.restore();
-    this.x = (this.x++ >= (1280 + this.radius)) ? -this.radius : this.x;
+    this.x += this.velocityX;
+    this.x = (this.x >= (1280 + this.radius)) ? -this.radius : this.x;
   }
 }
 
