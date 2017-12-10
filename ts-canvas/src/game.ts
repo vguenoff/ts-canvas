@@ -5,9 +5,10 @@ import IShape from 'components/shape.interface';
 import context from 'context';
 
 // instances
-const c1: Circle = new Circle(500, 400, 50);
-const c2: Circle = new Circle(500, 350, 150, 'blue', 5);
-const r1: Rectangle = new Rectangle(500, 400, 1000, 1000);
+const c1: Circle = new Circle(1000, 350, 50);
+const c2: Circle = new Circle(0, 350, 150, 'blue', 5);
+const c3: Circle = new Circle(200, 350, 100, 'pink', 5);
+const r1: Rectangle = new Rectangle(50, 50, 1180, 620, 'yellow', 12);
 const shapeArray: IShape[] = new Array<IShape>();
 
 const gameLoop = () => {
@@ -16,31 +17,25 @@ const gameLoop = () => {
 
   // clear the canvas
   ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0 , 1280, 720);
-  // // animation
-  // c1.x = (c1.x++ >= (1280 + c1.radius)) ? -c1.radius : c1.x;
-  // c2.y = (c2.y++ >= (720 + c2.radius)) ? -c2.radius : c2.y;
-  // // render
-  // r1.render();
-  // c1.render();
-  // c2.render();
+  ctx.fillRect(0, 0, 1280, 720);
 
-  // var shape: iShape;
-  // for (var i: number = 0; i < shape_array.length; i++) {
-  //    shape = shape_array[i];
-  //    shape.draw();
-  // }
-
+  // render all
   shapeArray.forEach((shape) => shape.render());
-
 };
 
 window.onload = () => {
-  shapeArray.push(new Asteroid());
-  shapeArray.push(new Asteroid());
-  shapeArray.push(new Asteroid());
-  shapeArray.push(new Asteroid());
-  shapeArray.push(new Asteroid());
 
+  let numOfAsteroids = 15;
+  while (numOfAsteroids > 0) {
+    shapeArray.push(new Asteroid());
+    numOfAsteroids-=1;
+  }
+
+  shapeArray.push(c2);
+  shapeArray.push(c1);
+  shapeArray.push(c3);
+  shapeArray.push(r1);
+
+  // loop
   gameLoop();
 };

@@ -13,7 +13,6 @@ class Circle implements IShape {
 
   public render = (): void => {
     const ctx: CanvasRenderingContext2D = context;
-
     ctx.save();
     ctx.beginPath();
     ctx.strokeStyle = this.color;
@@ -25,8 +24,11 @@ class Circle implements IShape {
       0,
       Math.PI * 2,
     );
+    ctx.fillStyle=this.color;
+    ctx.fill();
     ctx.stroke();
     ctx.restore();
+    this.x = (this.x++ >= (1280 + this.radius)) ? -this.radius : this.x;
   }
 }
 

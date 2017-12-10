@@ -9,72 +9,26 @@ class Asteroid implements IShape {
     public velocityX: number = Math.round(Math.random() * 4 - 2),
     public velocityY: number = Math.round(Math.random() * 4 - 2),
     public color: string = 'white',
-    public lineWidth: number = 2,
+    public lineWidth: number = 1,
     public size: number = Math.ceil(Math.random() * 10) + 4,
     public rotation: number = 0,
     public rotationSpeed: number = Math.random() * 0.06 - 0.03,
     public pointList: Point[] = new Array<Point>(),
   ) {
-    let xrand: number = 0;
-    let yrand: number = 0;
 
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
+    const xrand = () => Math.round(Math.random() * this.size);
+    const yrand = () => Math.round(Math.random() * this.size);
+    const getRandomInt = (min: number, max: number): number =>
+      Math.floor(Math.random() * (max - min + 1)) + min;
 
-    this.pointList.push(new Point(xrand, yrand + 3 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand - 1 * this.size, yrand + 2 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand - 2 * this.size, yrand + 2 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand - 3 * this.size, yrand + this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand - 4 * this.size, yrand));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand - 1 * this.size, yrand - 3 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand + 2 * this.size, yrand - 4 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand + 2 * this.size, yrand - 3 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand + 4 * this.size, yrand - 2 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand + 4 * this.size, yrand + this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
-
-    this.pointList.push(new Point(xrand + 3 * this.size, yrand + 2 * this.size));
-
-    xrand = Math.round(Math.random() * this.size - this.size / 2);
-    yrand = Math.round(Math.random() * this.size - this.size / 2);
+    while(this.pointList.length < 10) {
+      this.pointList.push(
+        new Point(
+          getRandomInt(1, 2) * this.size,
+          getRandomInt(1, 2) * this.size,
+        ),
+      );
+    }
   }
 
   public render = () => {
@@ -83,9 +37,9 @@ class Asteroid implements IShape {
     this.x += this.velocityX;
     this.y += this.velocityY;
 
-    const outsideTopLeft = -this.size * 2; // why *2
-    const outsideRight = 1280 + this.size * 2; // why *2
-    const outsideBottom = 720 + this.size * 2; // why *2
+    const outsideTopLeft = -this.size * 4; // multiple size to be fully outside
+    const outsideRight = 1280 + this.size * 4;
+    const outsideBottom = 720 + this.size * 4;
 
     this.x = (this.x < outsideTopLeft) ? (outsideRight) : this.x;
     this.x = (this.x > outsideRight) ? (outsideTopLeft) : this.x;
@@ -104,9 +58,7 @@ class Asteroid implements IShape {
       this.pointList[this.pointList.length - 1].x,
       this.pointList[this.pointList.length - 1].y,
     );
-    // for (var i: number = 0; i < this.pointList.length; i++) {
-    //   ctx.lineTo(this.pointList[i].x, this.pointList[i].y);
-    // }
+
     this.pointList.forEach((point) => ctx.lineTo(point.x, point.y));
     ctx.closePath();
     ctx.stroke();
