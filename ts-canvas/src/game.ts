@@ -39,8 +39,8 @@ window.onload = () => {
   }
 
   shapeArray.push(c2);
-  shapeArray.push(c3);
   shapeArray.push(c1);
+  shapeArray.push(c3);
   shapeArray.push(r1);
 
   // loop
