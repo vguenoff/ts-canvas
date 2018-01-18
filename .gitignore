@@ -1,5 +1,4 @@
 *.iml
 .idea
 .alm
-dist
 node_modules
